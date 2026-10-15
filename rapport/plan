@@ -1,0 +1,13 @@
+Brightstone Logistics — Implementation Roadmap
+Starting now
+
+1. Project setup and architecture
+   Create the package, virtual environment, Git repository, and configuration.
+2. Data models and CSV reader
+   Parse orders and validate their fields.
+3. Report calculations
+   Extend your existing functions to calculate products, customers, and categories.
+4. CLI and output writers
+   Add argparse, Markdown and JSON exports.
+5. Quality and delivery
+   Exceptions, logging, pytest, coverage, mypy, Ruff, documentation, and presentation.
