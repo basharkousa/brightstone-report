@@ -1,0 +1,4 @@
+order_id,date,customer,product,category,quantity,price
+1001,2026-10-12,John Smith,Laptop,Electronics,2,800.00
+1002,2026-10-12,Emma Brown,Mouse,Accessories,5,20.00
+1003,2026-10-13,John Smith,Laptop,Electronics,1,900.00

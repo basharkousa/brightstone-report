@@ -1,4 +1,4 @@
-from rapport.models import Order
+from src.report.models import Order
 
 order = Order(
     order_id="1001",
