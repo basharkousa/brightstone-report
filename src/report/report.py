@@ -1,11 +1,13 @@
-from models import Order
+from report.models import ReportSummary
+from src.report.models import Order
+from try_reader import orders
+
 
 def calculate_total_revenue(orders: list[Order]) -> float:
     total = 0.0
 
     for order in orders:
         total += order.revenue
-
     return total
 
 
@@ -40,3 +42,29 @@ def top_five(revenues: dict[str, float]) -> list[tuple[str, float]]:
     top_five_revenues = sorted_revenues[:5]
     return top_five_revenues
 
+
+def generate_report(orders: list[Order]) -> ReportSummary:
+    """Generate a complete sales report from validated orders."""
+
+    # Calculate the total number of orders.
+    total_orders = len(orders)
+
+    # Calculate total revenue.
+    total_revenue = calculate_total_revenue(orders)
+
+    # Find the five highest-revenue products.
+    top_products = top_five(calculate_product_revenue(orders))
+
+    # Find the five highest-spending customers.
+    top_customers = top_five(calculate_customer_spending(orders))
+
+    # Sort all categories by revenue, highest first.
+    revenue_by_category = sorted(calculate_category_revenue(orders).items(), key=lambda item: item[1], reverse=True)
+
+    return ReportSummary(
+        total_orders=total_orders,
+        total_revenue=total_revenue,
+        top_products=top_products,
+        top_customers=top_customers,
+        revenue_by_category=revenue_by_category,
+    )

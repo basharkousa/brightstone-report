@@ -5,7 +5,6 @@ from src.report.models import Order
 
 
 def read_orders(file_path: Path) -> list[Order]:
-
     orders: list[Order] = []
 
     with file_path.open("r", encoding="utf-8-sig", newline="") as file:
