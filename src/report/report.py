@@ -1,6 +1,5 @@
-from report.models import ReportSummary
+from src.report.models import ReportSummary
 from src.report.models import Order
-from try_reader import orders
 
 
 def calculate_total_revenue(orders: list[Order]) -> float:
