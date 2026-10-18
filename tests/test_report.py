@@ -60,13 +60,25 @@ def test_category_revenue(sample_orders: list[Order]) -> None:
     }
 
 
-def test_top_five(sample_orders: list[Order]) -> None:
+def test_top_five() -> None:
     """Return only the five highest revenue entries."""
-    result = top_five(calculate_product_revenue(sample_orders))
+    revenues = {
+        "A": 100.0,
+        "B": 600.0,
+        "C": 300.0,
+        "D": 500.0,
+        "E": 200.0,
+        "F": 400.0,
+    }
+
+    result = top_five(revenues)
 
     assert result == [
-        ("Laptop", 2500.0),
-        ("Mouse", 100.0)
+        ("B", 600.0),
+        ("D", 500.0),
+        ("F", 400.0),
+        ("C", 300.0),
+        ("E", 200.0),
     ]
 
 
