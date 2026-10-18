@@ -1,5 +1,4 @@
-from report.models import ReportSummary
-from report.models import Order
+from report.models import Order, ReportSummary
 
 
 def calculate_total_revenue(orders: list[Order]) -> float:
@@ -14,7 +13,9 @@ def calculate_product_revenue(orders: list[Order]) -> dict[str, float]:
     """Revenue grouped by product"""
     product_revenue_dict: dict[str, float] = {}
     for order in orders:
-        product_revenue_dict[order.product] = product_revenue_dict.get(order.product, 0.0) + order.revenue
+        product_revenue_dict[order.product] = (
+            product_revenue_dict.get(order.product, 0.0) + order.revenue
+        )
 
     return product_revenue_dict
 
@@ -23,7 +24,9 @@ def calculate_customer_spending(orders: list[Order]) -> dict[str, float]:
     """total spending grouped by customer."""
     customer_total_spending: dict[str, float] = {}
     for order in orders:
-        customer_total_spending[order.customer] = customer_total_spending.get(order.customer, 0.0) + order.revenue
+        customer_total_spending[order.customer] = (
+            customer_total_spending.get(order.customer, 0.0) + order.revenue
+        )
     return customer_total_spending
 
 
@@ -31,7 +34,9 @@ def calculate_category_revenue(orders: list[Order]) -> dict[str, float]:
     """Calculate total revenue grouped by category."""
     total_revenue_by_category: dict[str, float] = {}
     for order in orders:
-        total_revenue_by_category[order.category] = total_revenue_by_category.get(order.category, 0.0) + order.revenue
+        total_revenue_by_category[order.category] = (
+            total_revenue_by_category.get(order.category, 0.0) + order.revenue
+        )
     return total_revenue_by_category
 
 
@@ -58,7 +63,11 @@ def generate_report(orders: list[Order]) -> ReportSummary:
     top_customers = top_five(calculate_customer_spending(orders))
 
     # Sort all categories by revenue, highest first.
-    revenue_by_category = sorted(calculate_category_revenue(orders).items(), key=lambda item: item[1], reverse=True)
+    revenue_by_category = sorted(
+        calculate_category_revenue(orders).items(),
+        key=lambda item: item[1],
+        reverse=True,
+    )
 
     return ReportSummary(
         total_orders=total_orders,

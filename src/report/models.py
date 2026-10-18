@@ -21,9 +21,11 @@ class Order:
         if self.price <= 0:
             raise ValueError("Price must be grater than zero!!")
 
-@dataclass(frozen= True)
+
+@dataclass(frozen=True)
 class ReportSummary:
     """Contains the calculated statistics for an order report."""
+
     total_orders: int
     total_revenue: float
     top_products: list[tuple[str, float]]

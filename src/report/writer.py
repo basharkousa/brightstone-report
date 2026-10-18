@@ -9,14 +9,14 @@ ReportSummary
 
 ----JSON
     Machine-readable
-    """
+"""
 
 import json
 from dataclasses import asdict
-
-from report.models import ReportSummary
 from pathlib import Path
+
 from report.exceptions import ReportWriteError
+from report.models import ReportSummary
 
 
 def to_json(summary: ReportSummary) -> str:
@@ -41,23 +41,27 @@ def to_markdown(summary: ReportSummary) -> str:
     for product, revenue in summary.top_products:
         lines.append(f"| {product} | ${revenue:.2f} |")
 
-    lines.extend([
-        "",
-        "## Top 5 Customers",
-        "",
-        "| Customer | Spending |",
-        "|---|---:|",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Top 5 Customers",
+            "",
+            "| Customer | Spending |",
+            "|---|---:|",
+        ]
+    )
     for customer, revenue in summary.top_customers:
         lines.append(f"| {customer} | ${revenue:.2f} |")
 
-    lines.extend([
-        "",
-        "## Revenue by Category",
-        "",
-        "| Category | Revenue |",
-        "|---|---:|",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Revenue by Category",
+            "",
+            "| Category | Revenue |",
+            "|---|---:|",
+        ]
+    )
     for category, revenue in summary.revenue_by_category:
         lines.append(f"| {category} | ${revenue:.2f} |")
 
@@ -73,6 +77,7 @@ def write_report(content: str, output_path: Path) -> None:
         raise ReportWriteError(
             f"Cannot write report to {output_path}: {error}"
         ) from error
+
 
 def format_table(
     heading: str,

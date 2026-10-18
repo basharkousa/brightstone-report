@@ -1,12 +1,14 @@
 import argparse
 import logging
 from pathlib import Path
-from report.exceptions import CSVValidationError,ReportWriteError
+
+from report.exceptions import CSVValidationError, ReportWriteError
 from report.reader import read_orders
 from report.report import generate_report
 from report.writer import to_json, to_markdown, write_report
 
 logger = logging.getLogger(__name__)
+
 
 def main() -> int:
     """Run the Brightstone reporting application."""

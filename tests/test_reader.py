@@ -7,6 +7,7 @@ from report.reader import read_orders
 
 # AAA : Arrange - Act - Assert
 
+
 def test_read_valid_csv(tmp_path: Path) -> None:
     """Read valid CSV rows into Order objects."""
     csv_file = tmp_path / "orders.csv"
@@ -38,8 +39,8 @@ def test_missing_column(tmp_path: Path) -> None:
         encoding="utf-8",
     )
     with pytest.raises(CSVValidationError):
-
         read_orders(csv_file)
+
 
 def test_invalid_quantity(tmp_path: Path) -> None:
     """Reject CSV rows containing invalid quantities."""
@@ -52,8 +53,8 @@ def test_invalid_quantity(tmp_path: Path) -> None:
         encoding="utf-8",
     )
     with pytest.raises(CSVValidationError, match="row 2"):
-
         read_orders(csv_file)
+
 
 def test_missing_file(tmp_path: Path) -> None:
     """Raise FileNotFoundError for a missing input file."""
@@ -61,4 +62,3 @@ def test_missing_file(tmp_path: Path) -> None:
 
     with pytest.raises(FileNotFoundError):
         read_orders(missing_file)
-

@@ -48,6 +48,7 @@ def test_to_markdown(sample_summary: ReportSummary) -> None:
     assert "| John | $2500.00 |" in content
     assert "| Electronics | $2500.00 |" in content
 
+
 def test_write_report(tmp_path: Path) -> None:
     """Write report content to a UTF-8 file."""
     output_path = tmp_path / "reports" / "daily.md"
@@ -56,6 +57,7 @@ def test_write_report(tmp_path: Path) -> None:
 
     assert output_path.exists()
     assert output_path.read_text(encoding="utf-8") == "# Test Report"
+
 
 def test_write_report_failure(tmp_path: Path) -> None:
     """Convert filesystem writing failures into ReportWriteError."""

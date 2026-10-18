@@ -32,7 +32,7 @@ def test_order_rejects_zero_quantity() -> None:
         )
 
 
-def test_order_rejects_negative_quantity()-> None:
+def test_order_rejects_negative_quantity() -> None:
     with pytest.raises(ValueError):
         Order(
             order_id="ORD-002",
@@ -45,7 +45,7 @@ def test_order_rejects_negative_quantity()-> None:
         )
 
 
-def test_order_rejects_negative_price()-> None:
+def test_order_rejects_negative_price() -> None:
     with pytest.raises(ValueError):
         Order(
             order_id="ORD-002",
@@ -53,6 +53,6 @@ def test_order_rejects_negative_price()-> None:
             customer="Emma Brown",
             product="Mouse",
             category="Accessories",
-            quantity= 3,
+            quantity=3,
             price=-10.0,
         )

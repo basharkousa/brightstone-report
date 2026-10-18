@@ -1,15 +1,13 @@
-from dataclasses import asdict
-
 import pytest
 
 from report.models import Order, ReportSummary
 from report.report import (
-    calculate_total_revenue,
-    calculate_product_revenue,
-    calculate_customer_spending,
     calculate_category_revenue,
-    top_five,
+    calculate_customer_spending,
+    calculate_product_revenue,
+    calculate_total_revenue,
     generate_report,
+    top_five,
 )
 
 
@@ -89,16 +87,7 @@ def test_generate_report(sample_orders: list[Order]) -> None:
     assert result == ReportSummary(
         total_orders=3,
         total_revenue=2600.0,
-        top_products=[
-            ("Laptop", 2500.0),
-            ("Mouse", 100.0)
-        ],
-        top_customers=[
-            ("John", 2500.0),
-            ("Emma", 100.0)
-        ],
-        revenue_by_category=[
-            ("Electronics", 2500.0),
-            ("Accessories", 100.0)
-        ],
+        top_products=[("Laptop", 2500.0), ("Mouse", 100.0)],
+        top_customers=[("John", 2500.0), ("Emma", 100.0)],
+        revenue_by_category=[("Electronics", 2500.0), ("Accessories", 100.0)],
     )
