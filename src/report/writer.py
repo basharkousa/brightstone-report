@@ -16,6 +16,7 @@ from dataclasses import asdict
 
 from report.models import ReportSummary
 from pathlib import Path
+from report.exceptions import ReportWriteError
 
 
 def to_json(summary: ReportSummary) -> str:
@@ -64,10 +65,14 @@ def to_markdown(summary: ReportSummary) -> str:
 
 
 def write_report(content: str, output_path: Path) -> None:
-    """Write a rendered report to a UTF-8 file."""
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(content, encoding="utf-8")
-
+    """Write a report to a UTF-8 file."""
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(content, encoding="utf-8")
+    except OSError as error:
+        raise ReportWriteError(
+            f"Cannot write report to {output_path}: {error}"
+        ) from error
 
 def format_table(
     heading: str,

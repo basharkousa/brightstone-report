@@ -1,10 +1,7 @@
 import argparse
-from pathlib import Path
-
 import logging
-
-from report.exceptions import CSVValidationError
-
+from pathlib import Path
+from report.exceptions import CSVValidationError,ReportWriteError
 from report.reader import read_orders
 from report.report import generate_report
 from report.writer import to_json, to_markdown, write_report
@@ -50,6 +47,14 @@ def main() -> int:
     except CSVValidationError as error:
         logger.error("Invalid CSV: %s", error)
         return 1
+
+    except OSError as error:
+        logger.error("Cannot read input file: %s", error)
+        return 1
+
+    except ReportWriteError as error:
+        logger.error("%s", error)
+        return 2
 
     logger.info("Report generated successfully: %s", args.output)
     return 0
