@@ -11,3 +11,14 @@ Starting now
    Add argparse, Markdown and JSON exports.
 5. Quality and delivery
    Exceptions, logging, pytest, coverage, mypy, Ruff, documentation, and presentation.
+
+
+Live demo sequence
+Commands to rehearse in PowerShell
+
+$env:PYTHONPATH = "src"
+python -m pytest --cov=report --cov-report=term-missing
+python -m report --input src/data/orders.csv --output reports/daily-report.md --format markdown
+python -m report --input src/data/orders.csv --output reports/daily-report.json --format json
+python -m mypy --strict src/report
+python -m ruff check src/report tests
