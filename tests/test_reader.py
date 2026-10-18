@@ -5,6 +5,7 @@ import pytest
 from report.exceptions import CSVValidationError
 from report.reader import read_orders
 
+# AAA : Arrange - Act - Assert
 
 def test_read_valid_csv(tmp_path: Path) -> None:
     """Read valid CSV rows into Order objects."""
@@ -28,29 +29,30 @@ def test_read_valid_csv(tmp_path: Path) -> None:
 
 def test_missing_column(tmp_path: Path) -> None:
     """Reject CSV files with missing required columns."""
+    csv_file = tmp_path / "orders.csv"
 
+    csv_file.write_text(
+        "order_id,date,customer,product,quantity,price\n"
+        "ORD-001,2026-10-18,John,Laptop,2,800\n"
+        "ORD-002,2026-10-18,Emma,Mouse,3,20\n",
+        encoding="utf-8",
+    )
     with pytest.raises(CSVValidationError):
-        csv_file = tmp_path / "orders.csv"
 
-        csv_file.write_text(
-            "order_id,date,customer,product,quantity,price\n"
-            "ORD-001,2026-10-18,John,Laptop,2,800\n"
-            "ORD-002,2026-10-18,Emma,Mouse,3,20\n",
-            encoding="utf-8",
-        )
         read_orders(csv_file)
 
 def test_invalid_quantity(tmp_path: Path) -> None:
     """Reject CSV rows containing invalid quantities."""
-    with pytest.raises(CSVValidationError, match="row 2"):
-        csv_file = tmp_path / "orders.csv"
+    csv_file = tmp_path / "orders.csv"
 
-        csv_file.write_text(
-            "order_id,date,customer,product,category,quantity,price\n"
-            "ORD-001,2026-10-18,John,Laptop,Electronics,abc,800\n"
-            "ORD-002,2026-10-18,Emma,Mouse,Accessories,3,20\n",
-            encoding="utf-8",
-        )
+    csv_file.write_text(
+        "order_id,date,customer,product,category,quantity,price\n"
+        "ORD-001,2026-10-18,John,Laptop,Electronics,abc,800\n"
+        "ORD-002,2026-10-18,Emma,Mouse,Accessories,3,20\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(CSVValidationError, match="row 2"):
+
         read_orders(csv_file)
 
 def test_missing_file(tmp_path: Path) -> None:
